@@ -1,0 +1,60 @@
+.header-container {
+    padding: 1rem;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.header-container h2 {
+    color: #FF4B4B;
+    margin-bottom: 0.5rem;
+}
+
+.header-container p {
+    color: #6c757d;
+    font-size: 1.1rem;
+}
+
+/* Custom styling for streamlit elements */
+.stButton>button {
+    width: 100%;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.stExpander {
+    background-color: #ffffff;
+    border: 1px solid #e9ecef;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+}
+
+.stSlider {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+/* Loading spinner customization */
+.stSpinner {
+    text-align: center;
+    max-width: 50%;
+    margin: 0 auto;
+}
+
+/* Error message styling */
+.stAlert {
+    background-color: #fff3f3;
+    padding: 1rem;
+    border-radius: 5px;
+    margin-top: 1rem;
+}
+
+/* Success message styling */
+.success {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 1rem;
+    border-radius: 5px;
+    margin-top: 1rem;
+}
