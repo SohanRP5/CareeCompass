@@ -2,10 +2,8 @@ import os
 import json
 from openai import OpenAI
 
-# the newest OpenAI model is "gpt-4o" which was released May 13, 2024.
-# do not change this unless explicitly requested by the user
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "your-api-key")
-client = OpenAI(api_key=OPENAI_API_KEY)
+# Initialize OpenAI client with environment variable
+client = OpenAI()  # This will automatically use OPENAI_API_KEY from environment
 
 def get_career_recommendations(skills, experience_years, education_level, interests):
     """
@@ -17,7 +15,7 @@ def get_career_recommendations(skills, experience_years, education_level, intere
         "education_level": education_level,
         "interests": interests
     }
-    
+
     system_message = """
     You are a career guidance expert. Analyze the user's skills, experience, and interests to recommend suitable career paths.
     Provide detailed recommendations in JSON format with the following structure:
@@ -35,7 +33,7 @@ def get_career_recommendations(skills, experience_years, education_level, intere
         "development_plan": "Detailed development plan"
     }
     """
-    
+
     try:
         response = client.chat.completions.create(
             model="gpt-4o",
@@ -45,7 +43,7 @@ def get_career_recommendations(skills, experience_years, education_level, intere
             ],
             response_format={"type": "json_object"}
         )
-        
+
         return json.loads(response.choices[0].message.content)
     except Exception as e:
         raise Exception(f"Failed to get career recommendations: {str(e)}")
