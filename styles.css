@@ -190,3 +190,127 @@ h2, h3, .stSubheader {
     margin-bottom: 15px;
     border-left: 4px solid #3498db;
 }
+
+/* Analytics section styling */
+.analytics-section {
+    margin-top: 2rem;
+    padding: 1rem;
+    background-color: #f1f6fa;
+    border-radius: 8px;
+    border-bottom: 3px solid #4a69bd;
+}
+
+.analytics-section h3 {
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+}
+
+/* Chart explanation box styling */
+.chart-explanation {
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+}
+
+.chart-explanation p {
+    margin-bottom: 0.5rem;
+}
+
+.chart-explanation ul {
+    margin-top: 0.5rem;
+    padding-left: 1.5rem;
+}
+
+.chart-explanation strong {
+    color: #2c3e50;
+}
+
+/* Summary cards styling */
+.summary-card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 1.2rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    border-left: 4px solid #4a69bd;
+}
+
+.summary-card h4 {
+    color: #2c3e50;
+    margin-bottom: 0.8rem;
+}
+
+.summary-card ul {
+    padding-left: 1.2rem;
+    margin-bottom: 0;
+}
+
+.summary-card li {
+    margin-bottom: 0.5rem;
+    line-height: 1.4;
+}
+
+/* Analytics section styling */
+.analytics-section {
+    margin-top: 2rem;
+    padding: 1rem;
+    background-color: #f1f6fa;
+    border-radius: 8px;
+    border-bottom: 3px solid #4a69bd;
+}
+
+.analytics-section h3 {
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+}
+
+/* Chart explanation box styling */
+.chart-explanation {
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+}
+
+.chart-explanation p {
+    margin-bottom: 0.5rem;
+}
+
+.chart-explanation ul {
+    margin-top: 0.5rem;
+    padding-left: 1.5rem;
+}
+
+.chart-explanation strong {
+    color: #2c3e50;
+}
+
+/* Summary cards styling */
+.summary-card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 1.2rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    border-left: 4px solid #4a69bd;
+}
+
+.summary-card h4 {
+    color: #2c3e50;
+    margin-bottom: 0.8rem;
+}
+
+.summary-card ul {
+    padding-left: 1.2rem;
+    margin-bottom: 0;
+}
+
+.summary-card li {
+    margin-bottom: 0.5rem;
+    line-height: 1.4;
+}

@@ -5,6 +5,8 @@ import random
 import pandas as pd
 import time
 from utils import load_css, create_skill_rating_chart, get_skill_recommendations
+from analytics_report import generate_analytics_report
+from data_analytics_guide import add_analytics_document_tab
 
 def main():
     load_css()
@@ -19,7 +21,7 @@ def main():
         """, unsafe_allow_html=True)
     
     # Navigation tabs for the entire application
-    app_tabs = st.tabs(["🔍 Skills Assessment", "📊 Analytics Dashboard", "🚀 Career Roadmap"])
+    app_tabs = st.tabs(["🔍 Skills Assessment", "📊 Analytics Dashboard", "🚀 Career Roadmap", "📚 Documentation"])
     
     with app_tabs[0]:  # Skills Assessment Tab
         st.markdown("""
@@ -290,71 +292,103 @@ def main():
         st.markdown("""
         <div class="card-container">
             <h2>📈 Skills Analytics Dashboard</h2>
-            <p>Visual insights to track your technical growth and industry benchmarks</p>
+            <p>Visual insights to track your technical growth with detailed data analytics</p>
         </div>
         """, unsafe_allow_html=True)
+
+        # Add tabs for different analytics views
+        analytics_tabs = st.tabs(["📊 Quick Overview", "📈 Comprehensive Report"])
         
-        # Skill statistics
-        if len(all_ratings) > 0:  # Only show if skills have been rated
-            # Industry comparison (simulated data)
-            st.subheader("Industry Benchmarks Comparison")
-            st.markdown("See how your skills compare to industry averages")
-            
-            # Generate random industry data for visualization
-            industry_data = {skill: min(5, max(1, rating + random.uniform(-1, 1))) 
-                             for skill, rating in list(all_ratings.items())[:8]}  # Use a subset
-            
-            # Create a comparison dataframe
-            comparison_data = {
-                'Skill': list(industry_data.keys()),
-                'Your Rating': [all_ratings.get(skill, 0) for skill in industry_data.keys()],
-                'Industry Average': list(industry_data.values())
-            }
-            df = pd.DataFrame(comparison_data)
-            
-            # Create a grouped bar chart
-            fig = px.bar(
-                df, 
-                x='Skill', 
-                y=['Your Rating', 'Industry Average'],
-                barmode='group',
-                color_discrete_sequence=['#4a69bd', '#6c757d'],
-                template="plotly_white",
-                title="Your Skills vs. Industry Benchmarks"
-            )
-            st.plotly_chart(fig, use_container_width=True)
-            
-            # Skill distribution (simulated data)
-            st.subheader("Skill Level Distribution")
-            
-            # Count ratings by level
-            if all_ratings:
-                rating_counts = {'Beginner (1)': 0, 'Basic (2)': 0, 'Intermediate (3)': 0, 'Advanced (4)': 0, 'Expert (5)': 0}
-                for rating in all_ratings.values():
-                    if rating == 1:
-                        rating_counts['Beginner (1)'] += 1
-                    elif rating == 2:
-                        rating_counts['Basic (2)'] += 1
-                    elif rating == 3:
-                        rating_counts['Intermediate (3)'] += 1
-                    elif rating == 4:
-                        rating_counts['Advanced (4)'] += 1
-                    elif rating == 5:
-                        rating_counts['Expert (5)'] += 1
+        with analytics_tabs[0]:  # Quick Overview Tab
+            # Basic skill statistics for quick view
+            if len(all_ratings) > 0:  # Only show if skills have been rated
+                # Industry comparison (simulated data)
+                st.subheader("Industry Benchmarks Comparison")
+                st.markdown("""
+                <div class="chart-explanation">
+                    <p><strong>Chart Type:</strong> Grouped Bar Chart</p>
+                    <p><strong>Purpose:</strong> Compares your skill ratings against industry average benchmarks.</p>
+                    <p><strong>How to interpret:</strong> Bars higher than the industry average indicate areas where you excel.
+                    Bars below industry average suggest potential growth opportunities.</p>
+                </div>
+                """, unsafe_allow_html=True)
                 
-                # Create a pie chart
-                fig = px.pie(
-                    values=list(rating_counts.values()),
-                    names=list(rating_counts.keys()),
-                    title="Distribution of Your Skill Levels",
-                    color_discrete_sequence=px.colors.sequential.Viridis,
-                    hole=0.4
+                # Generate random industry data for visualization
+                industry_data = {skill: min(5, max(1, rating + random.uniform(-1, 1))) 
+                                for skill, rating in list(all_ratings.items())[:8]}  # Use a subset
+                
+                # Create a comparison dataframe
+                comparison_data = {
+                    'Skill': list(industry_data.keys()),
+                    'Your Rating': [all_ratings.get(skill, 0) for skill in industry_data.keys()],
+                    'Industry Average': list(industry_data.values())
+                }
+                df = pd.DataFrame(comparison_data)
+                
+                # Create a grouped bar chart
+                fig = px.bar(
+                    df, 
+                    x='Skill', 
+                    y=['Your Rating', 'Industry Average'],
+                    barmode='group',
+                    color_discrete_sequence=['#4a69bd', '#6c757d'],
+                    template="plotly_white",
+                    title="Your Skills vs. Industry Benchmarks"
                 )
                 st.plotly_chart(fig, use_container_width=True)
+                
+                # Skill distribution with explanation
+                st.subheader("Skill Level Distribution")
+                st.markdown("""
+                <div class="chart-explanation">
+                    <p><strong>Chart Type:</strong> Donut Chart</p>
+                    <p><strong>Purpose:</strong> Shows the distribution of your skills across different proficiency levels.</p>
+                    <p><strong>How to interpret:</strong> Larger segments indicate more skills at that level.
+                    A balanced distribution or skew toward higher levels indicates a well-rounded skill profile.</p>
+                </div>
+                """, unsafe_allow_html=True)
+                
+                # Count ratings by level
+                if all_ratings:
+                    rating_counts = {'Beginner (1)': 0, 'Basic (2)': 0, 'Intermediate (3)': 0, 'Advanced (4)': 0, 'Expert (5)': 0}
+                    for rating in all_ratings.values():
+                        if rating == 1:
+                            rating_counts['Beginner (1)'] += 1
+                        elif rating == 2:
+                            rating_counts['Basic (2)'] += 1
+                        elif rating == 3:
+                            rating_counts['Intermediate (3)'] += 1
+                        elif rating == 4:
+                            rating_counts['Advanced (4)'] += 1
+                        elif rating == 5:
+                            rating_counts['Expert (5)'] += 1
+                    
+                    # Create a pie chart
+                    fig = px.pie(
+                        values=list(rating_counts.values()),
+                        names=list(rating_counts.keys()),
+                        title="Distribution of Your Skill Levels",
+                        color_discrete_sequence=px.colors.sequential.Viridis,
+                        hole=0.4
+                    )
+                    st.plotly_chart(fig, use_container_width=True)
+                else:
+                    st.info("Rate your skills in the Assessment tab to see your skill distribution")
             else:
-                st.info("Rate your skills in the Assessment tab to see your skill distribution")
-        else:
-            st.info("Please complete the Skills Assessment to view analytics")
+                st.info("Please complete the Skills Assessment to view analytics")
+                
+        with analytics_tabs[1]:  # Comprehensive Report Tab
+            if len(all_ratings) > 0:
+                # Pass all the necessary data to generate a comprehensive analytics report
+                generate_analytics_report(
+                    all_ratings,
+                    experience_years,
+                    education_level,
+                    current_role,
+                    learning_goals
+                )
+            else:
+                st.info("Please complete the Skills Assessment to view the comprehensive analytics report")
     
     with app_tabs[2]:  # Career Roadmap Tab
         st.markdown("""
@@ -377,6 +411,14 @@ def main():
         
         if current_role in role_paths:
             st.subheader(f"Career Progression Path from {current_role}")
+            st.markdown("""
+            <div class="chart-explanation">
+                <p><strong>Chart Type:</strong> Timeline Chart</p>
+                <p><strong>Purpose:</strong> Visualizes your potential career progression path based on your current role.</p>
+                <p><strong>How to interpret:</strong> Each point represents a career milestone, with approximate years of experience
+                required to reach each level. The path is customized based on your current position.</p>
+            </div>
+            """, unsafe_allow_html=True)
             
             # Create a career path visualization
             career_data = {
@@ -408,7 +450,13 @@ def main():
             # Certification recommendations based on learning goals
             if learning_goals:
                 st.subheader("Recommended Certifications")
-                st.markdown("Based on your learning goals and current role")
+                st.markdown("""
+                <div class="chart-explanation">
+                    <p><strong>Purpose:</strong> Provides targeted certification recommendations based on your selected learning goals.</p>
+                    <p><strong>How to use:</strong> These certifications are industry-recognized credentials that can help validate your
+                    skills and accelerate your career progression in your chosen focus areas.</p>
+                </div>
+                """, unsafe_allow_html=True)
                 
                 # Sample certifications map
                 cert_map = {
@@ -438,6 +486,9 @@ def main():
                         """, unsafe_allow_html=True)
             else:
                 st.info("Select learning goals in the Assessment tab to see certification recommendations")
+
+    with app_tabs[3]:  # Documentation Tab
+        add_analytics_document_tab()
 
 if __name__ == "__main__":
     st.set_page_config(
