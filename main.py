@@ -2,7 +2,9 @@ import streamlit as st
 import plotly.graph_objects as go
 import plotly.express as px
 import pandas as pd
-import time
+import numpy as np
+import random  # Add this import
+from datetime import datetime, timedelta
 from utils import load_css, create_skill_rating_chart, get_skill_recommendations
 from analytics_report import generate_analytics_report
 from data_analytics_guide import add_analytics_document_tab
