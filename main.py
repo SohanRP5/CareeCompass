@@ -9,7 +9,23 @@ from utils import load_css, create_skill_rating_chart, get_skill_recommendations
 from analytics_report import generate_analytics_report
 from data_analytics_guide import add_analytics_document_tab
 
+# Add health check endpoint
+from streamlit.web.server.server import Server
+import os
+
+if "STREAMLIT_HEALTH_CHECK" in os.environ:
+    st.success("Health check passed!")
+    st.stop()
+
 def main():
+    # Set page config at the very beginning
+    st.set_page_config(
+        page_title="Tech Career Compass",
+        page_icon="🎯",
+        layout="wide",
+        initial_sidebar_state="collapsed"
+    )
+    
     load_css()
     
     # App header with animation effect
@@ -492,10 +508,4 @@ def main():
         add_analytics_document_tab()
 
 if __name__ == "__main__":
-    st.set_page_config(
-        page_title="Tech Career Compass",
-        page_icon="🎯",
-        layout="wide",
-        initial_sidebar_state="collapsed"
-    )
     main()
