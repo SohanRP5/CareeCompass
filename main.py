@@ -497,4 +497,4 @@ if __name__ == "__main__":
         layout="wide",
         initial_sidebar_state="collapsed"
     )
-    main()
+main()
