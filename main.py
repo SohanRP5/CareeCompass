@@ -1,7 +1,6 @@
 import streamlit as st
 import plotly.graph_objects as go
 import plotly.express as px
-import random
 import pandas as pd
 import time
 from utils import load_css, create_skill_rating_chart, get_skill_recommendations
@@ -497,4 +496,4 @@ if __name__ == "__main__":
         layout="wide",
         initial_sidebar_state="collapsed"
     )
-main()
+    main()

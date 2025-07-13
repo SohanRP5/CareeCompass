@@ -6,34 +6,18 @@ import numpy as np
 import random
 from datetime import datetime, timedelta
 
-def generate_analytics_report(skills, experience_years, education_level, current_role, learning_goals):
-    """
-    Generate a comprehensive data analytics report with detailed visualizations
-    and interpretations of the user's skill assessment.
+def generate_analytics_report(ratings, experience, education, role, goals):
+    st.subheader("Skills Analysis Report")
+    st.write(f"**Current Role:** {role}")
+    st.write(f"**Years of Experience:** {experience}")
+    st.write(f"**Education Level:** {education}")
     
-    Parameters:
-    -----------
-    skills : dict
-        Dictionary of skill names and their ratings (1-5)
-    experience_years : int
-        Years of professional experience
-    education_level : str
-        Highest education level achieved
-    current_role : str
-        Current professional role
-    learning_goals : list
-        List of selected learning goals/focus areas
-    
-    Returns:
-    --------
-    None - Displays visualizations and analysis directly in the Streamlit app
-    """
-    st.markdown("""
-    <div class="card-container">
-        <h2>📊 Comprehensive Skills Analytics Report</h2>
-        <p>In-depth analysis of your technical proficiency with detailed visualizations</p>
-    </div>
-    """, unsafe_allow_html=True)
+    if goals:
+        st.write("**Learning Goals:**")
+        for goal in goals:
+            st.write(f"- {goal}")
+    else:
+        st.write("No learning goals specified")
     
     # ====== SECTION 1: SKILL PROFILE OVERVIEW ======
     st.markdown("""
@@ -44,12 +28,12 @@ def generate_analytics_report(skills, experience_years, education_level, current
     """, unsafe_allow_html=True)
     
     # Create a DataFrame for all skills
-    if skills:
+    if ratings:
         # Create DataFrame for all skills
         df = pd.DataFrame({
-            'Skill': list(skills.keys()),
-            'Rating': list(skills.values()),
-            'Domain': [get_skill_domain(skill, skills) for skill in skills.keys()]
+            'Skill': list(ratings.keys()),
+            'Rating': list(ratings.values()),
+            'Domain': [get_skill_domain(skill, ratings) for skill in ratings.keys()]
         })
         
         # Display the summary statistics
@@ -326,7 +310,7 @@ def generate_analytics_report(skills, experience_years, education_level, current
         """, unsafe_allow_html=True)
         
         # Generate simulated benchmark data based on role and experience
-        benchmark_data = generate_benchmark_data(domain_avg, current_role, experience_years)
+        benchmark_data = generate_benchmark_data(domain_avg, role, experience)
         
         # Create radar chart for benchmark comparison
         fig = go.Figure()
@@ -383,7 +367,7 @@ def generate_analytics_report(skills, experience_years, education_level, current
         """, unsafe_allow_html=True)
         
         # Generate growth projection data
-        growth_data = generate_growth_projection(domain_avg, experience_years, learning_goals)
+        growth_data = generate_growth_projection(domain_avg, experience, goals)
         
         # Create line chart for growth projection
         fig = px.line(
@@ -401,7 +385,7 @@ def generate_analytics_report(skills, experience_years, education_level, current
         fig.add_hline(y=5, line_dash="dash", line_color="gray")
         
         # Add annotations for key milestones
-        add_milestone_annotations(fig, growth_data, experience_years)
+        add_milestone_annotations(fig, growth_data, experience)
         
         fig.update_layout(
             xaxis_title="Months from Now",
@@ -439,7 +423,7 @@ def generate_analytics_report(skills, experience_years, education_level, current
         """, unsafe_allow_html=True)
         
         # Generate the quadrant analysis data
-        quadrant_data = generate_quadrant_analysis(df, learning_goals)
+        quadrant_data = generate_quadrant_analysis(df, goals)
         
         # Create the quadrant chart
         fig = px.scatter(

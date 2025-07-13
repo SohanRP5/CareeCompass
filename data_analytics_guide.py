@@ -360,9 +360,15 @@ def add_analytics_document_tab():
     """Add analytics documentation tab to the main navigation"""
     st.markdown("""
     <div class="card-container">
-        <h2>📚 Analytics Documentation</h2>
-        <p>Detailed explanation of the data analytics visualizations and methodology</p>
+        <h2>📚 Documentation & Guidelines</h2>
+        <p>Learn how to interpret and use the Career Compass analytics</p>
     </div>
     """, unsafe_allow_html=True)
     
-    show_analytics_documentation()
+    st.subheader("How to Use This Tool")
+    st.write("""
+    1. Complete the Skills Assessment
+    2. Review your Analytics Dashboard
+    3. Follow your Career Roadmap
+    4. Update regularly to track progress
+    """)
